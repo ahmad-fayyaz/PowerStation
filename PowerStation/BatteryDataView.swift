@@ -1,15 +1,25 @@
-//
-//  BatteryDataView.swift
-//  PowerStation
-//
-//  Created by Ahmad Fayyaz on 28/07/2024.
-//
-
 import SwiftUI
+import IOKit.ps
 
 struct BatteryDataView: View {
+    
+    @State private var batteryLevel: Int?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            if let batteryLevel = batteryLevel {
+                Text("Current Battery Level: \(batteryLevel)%")
+                    .font(.largeTitle)
+                    .padding()
+            } else {
+                Text("Loading Battery Data...")
+                    .font(.headline)
+                    .padding()
+            }
+        }
+        .onAppear {
+            self.batteryLevel = getBatteryLevel()
+        }
     }
 }
 

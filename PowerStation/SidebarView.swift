@@ -9,27 +9,21 @@ import SwiftUI
 
 struct SidebarView: View {
     
-    @State private var selection: SidebarContent? = .dashboard
+    @Binding var selection: SidebarContent?
     
     var body: some View {
-        NavigationSplitView {
-            List(SidebarContent.allCases, id: \.self, selection: $selection) { item in
-                NavigationLink(value: item) {
-                    Label(item.displayName, systemImage: item.iconName)
-                }
-            }
-            .navigationTitle("Powerhouse")
-            .listStyle(SidebarListStyle())
-        } detail: {
-            if let selected = selection {
-                Text("Selected: \(selected.displayName)")
-            } else {
-                Text("Select an item")
+        List(SidebarContent.allCases, id: \.self, selection: $selection) { item in
+            NavigationLink(value: item) {
+                Label(item.displayName, systemImage: item.iconName)
             }
         }
+        .navigationTitle("Powerhouse")
+        .listStyle(SidebarListStyle())
     }
 }
 
 #Preview {
-    SidebarView()
+    SidebarView(selection: .constant(.dashboard))
 }
+
+

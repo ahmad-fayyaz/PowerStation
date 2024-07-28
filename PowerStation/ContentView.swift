@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var selection: SidebarContent? = .dashboard
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationSplitView {
+            SidebarView(selection: $selection)
+        } detail: {
+            if let selected = selection {
+                switch selected {
+                case .dashboard:
+                    BatteryDataView()
+                case .settings:
+                    Text("Settings View")
+                case .about:
+                    AboutContent()
+                }
+            } else {
+                Text("Select an item")
+            }
         }
-        .padding()
     }
 }
 
