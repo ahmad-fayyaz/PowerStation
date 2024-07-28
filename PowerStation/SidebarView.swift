@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct SidebarView: View {
+    
+    @State private var selection: SidebarContent? = .dashboard
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationSplitView {
+            List(SidebarContent.allCases, id: \.self, selection: $selection) { item in
+                NavigationLink(value: item) {
+                    Label(item.displayName, systemImage: item.iconName)
+                }
+            }
+            .navigationTitle("Powerhouse")
+            .listStyle(SidebarListStyle())
+        } detail: {
+            if let selected = selection {
+                Text("Selected: \(selected.displayName)")
+            } else {
+                Text("Select an item")
+            }
+        }
     }
 }
 
