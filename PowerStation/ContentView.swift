@@ -20,7 +20,7 @@ struct ContentView: View {
                 case .dashboard:
                     BatteryDataView()
                 case .settings:
-                    Text("Settings View")
+                    SettingsView()
                 case .about:
                     AboutContent()
                 }

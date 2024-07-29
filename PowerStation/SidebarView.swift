@@ -20,6 +20,7 @@ struct SidebarView: View {
         .navigationTitle("Powerhouse")
         .listStyle(SidebarListStyle())
     }
+        
 }
 
 #Preview {
