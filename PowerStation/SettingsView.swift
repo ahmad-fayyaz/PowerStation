@@ -1,10 +1,3 @@
-//
-//  SettingsView.swift
-//  PowerStation
-//
-//  Created by Ahmad Fayyaz on 28/07/2024.
-//
-
 import SwiftUI
 
 struct SettingsView: View {
@@ -14,7 +7,6 @@ struct SettingsView: View {
     
     @State private var sliderValue1: Double = 50.0
     @State private var sliderValue2: Double = 75.0
-    @State private var onLogin = false
     
     var body: some View {
         
@@ -45,17 +37,10 @@ struct SettingsView: View {
                 }
             }
             
-            Toggle(isOn: $onLogin) {
-                        Text("Start Powerhouse on Login")
-                    }
-                    .toggleStyle(.checkbox)
-            
-            
             // Apply Settings
             Button(action: applyChanges) {
                 Text("Apply")
             }
-            
             
             Spacer()
         }
