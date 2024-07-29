@@ -5,6 +5,7 @@ Opensource MacOS 15+ Apple Silicon supported battery management app. Displays ad
 WARNING: Still in development.
 
 ![Dashboard](https://raw.githubusercontent.com/ahmad-fayyaz/PowerStation/main/Screenshot%202024-07-28%20at%2010.51.02%E2%80%AFPM.png)
+![Settings](https://raw.githubusercontent.com/ahmad-fayyaz/PowerStation/main/Screenshot%202024-07-28%20at%2010.51.12%E2%80%AFPM.png)
  
 ## Built With
 
