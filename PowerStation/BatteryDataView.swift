@@ -11,11 +11,11 @@ struct BatteryDataView: View {
     @State private var batteryHealth: String?
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 20) {
             
             // Battery Capacity Widget
             HStack {
-                VStack(alignment: .leading, spacing: 13.0) {
+                VStack(alignment: .leading, spacing: 10) {
                     Label("Battery Capacity", systemImage: "battery.100")
                     if let currentCapacity = currentCapacity {
                         Text("\(currentCapacity)%")
@@ -23,17 +23,20 @@ struct BatteryDataView: View {
                             .fontWeight(.heavy)
                     }
                 }
-                ProgressView(value: 0.25) { }
+                Spacer()
+                ProgressView(value: (currentCapacity != nil) ? Double(currentCapacity!) / 100 : 0.25)
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .frame(width: 150)
                     .padding()
             }
             
             // Time to charge + discharge Widget
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 20) {
                 VStack {
                     Label("Time to Full Charge", systemImage: "timelapse")
                     if let timeToFullCharge = timeToFullCharge {
                         ProgressView(value: 0.25)
-                            .progressViewStyle(.circular)
+                            .progressViewStyle(CircularProgressViewStyle())
                         Text(" \(timeToFullCharge) minutes")
                             .font(.title)
                             .fontWeight(.heavy)
@@ -41,10 +44,10 @@ struct BatteryDataView: View {
                 }
                 Spacer()
                 VStack {
-                    Label("Time to Empty", systemImage: "exclamationmark.warninglight.fill")
+                    Label("Time to Empty", systemImage: "exclamationmark.triangle.fill")
                     if let timeToEmpty = timeToEmpty {
                         ProgressView(value: 0.25)
-                            .progressViewStyle(.circular)
+                            .progressViewStyle(CircularProgressViewStyle())
                         Text("\(timeToEmpty) minutes")
                             .font(.title)
                             .fontWeight(.heavy)
@@ -57,32 +60,34 @@ struct BatteryDataView: View {
                 ZStack {
                     Rectangle()
                         .fill(isCharging ? Color.green : Color.gray)
-                        .frame(width: 600.0, height: 50.0)
+                        .frame(height: 50.0)
                         .cornerRadius(10)
                     Text("Is Charging: \(isCharging ? "Yes" : "No")")
                         .foregroundColor(.white)
                         .bold()
                 }
+                .padding(.vertical, 10)
             }
             
             // Power Source Widget
             HStack {
-                Label(title: { Text("Power Source") }, icon: { Image(systemName: "bolt.fill") })
+                Label("Power Source", systemImage: "bolt.fill")
                 Spacer()
                 if let powerSourceState = powerSourceState {
                     Text("\(powerSourceState)")
                 }
             }
-            
+            .padding(.vertical, 5)
             
             // Battery Health Widget
             HStack {
-                Label(title: { Text("Battery Health") }, icon: { Image(systemName: "heart.fill") })
+                Label("Battery Health", systemImage: "heart.fill")
                 Spacer()
                 if let batteryHealth = batteryHealth {
                     Text("\(batteryHealth)")
                 }
             }
+            .padding(.vertical, 5)
             
             // Loading State
             if currentCapacity == nil &&
@@ -93,6 +98,7 @@ struct BatteryDataView: View {
                 batteryHealth == nil {
                 Text("Loading Battery Data...")
                     .font(.headline)
+                    .padding(.top, 20)
             }
         }
         .padding()

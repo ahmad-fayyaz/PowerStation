@@ -14,31 +14,48 @@ struct SettingsView: View {
     
     @State private var sliderValue1: Double = 50.0
     @State private var sliderValue2: Double = 75.0
+    @State private var onLogin = false
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 20) {
             Text("Settings")
                 .font(.largeTitle)
                 .padding(.bottom, 20)
-            
+                
+            // Slider #1
             VStack(alignment: .leading) {
-                Text("Slider 1 Value: \(Int(sliderValue1))")
+                Text("Start Charging at \(Int(sliderValue1))%")
                 Slider(value: $sliderValue1, in: 0...100, step: 1)
             }
             
+            // Slider #2
             VStack(alignment: .leading) {
-                Text("Slider 2 Value: \(Int(sliderValue2))")
+                Text("Stop Charging at \(Int(sliderValue2))%")
                 Slider(value: $sliderValue2, in: 0...100, step: 1)
             }
             
+            // Disable/Enable Power Adapter
+            HStack {
+                Button(action: applyChanges) {
+                    Text("Disable Power Adapter")
+                }
+                Button(action: applyChanges) {
+                    Text("Request Full Charging")
+                }
+            }
+            
+            Toggle(isOn: $onLogin) {
+                        Text("Start Powerhouse on Login")
+                    }
+                    .toggleStyle(.checkbox)
+            
+            
+            // Apply Settings
             Button(action: applyChanges) {
                 Text("Apply")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
             }
-            .padding(.top, 20)
+            
             
             Spacer()
         }
